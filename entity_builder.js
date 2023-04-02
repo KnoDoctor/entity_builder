@@ -7,6 +7,14 @@ const {
     buildApiIdentifierFile,
 } = require("./structure/pages/api/[entity]/[identifier]");
 
+//Admin
+const {
+    buildAdminIndexFile,
+} = require("./structure/pages/admin/[module]/index");
+const {
+    buildAdminIdentifierFile,
+} = require("./structure/pages/admin/[module]/[identifier]");
+
 //Frontend
 const { buildEntityIndexFile } = require("./structure/pages/[entity]/index");
 const {
@@ -62,6 +70,25 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     lowercaseSingular,
                 });
                 const apiIdentifierContent = buildApiIdentifierFile({
+                    uppercasePlural,
+                    uppercaseSingular,
+                    lowercasePlural,
+                    lowercaseSingular,
+                });
+
+                //Admin
+                const adminDir = `${baseDir}/pages/admin/${lowercasePlural}/`;
+
+                const adminIndexFile = `${adminDir}index.tsx`;
+                const adminIdentifierFile = `${adminDir}[identifier].tsx`;
+
+                const adminIndexContent = buildAdminIndexFile({
+                    uppercasePlural,
+                    uppercaseSingular,
+                    lowercasePlural,
+                    lowercaseSingular,
+                });
+                const adminIdentifierContent = buildAdminIdentifierFile({
                     uppercasePlural,
                     uppercaseSingular,
                     lowercasePlural,
@@ -155,6 +182,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
 
                 // Create directories if they don't exist
                 fs.mkdirSync(apiDir, { recursive: true });
+                fs.mkdirSync(adminDir, { recursive: true });
                 fs.mkdirSync(frontendDir, { recursive: true });
                 fs.mkdirSync(hooksDir, { recursive: true });
                 fs.mkdirSync(componentOrganismDir, { recursive: true });
@@ -163,23 +191,47 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                 //API
                 fs.writeFile(apiIndexFile, apiIndexContent, (err) => {
                     if (err) throw err;
-                    console.log("Index file created with name:", apiIndexFile);
+                    console.log(
+                        "API index file created with name:",
+                        apiIndexFile
+                    );
                 });
 
                 fs.writeFile(apiIdentifierFile, apiIdentifierContent, (err) => {
                     if (err) throw err;
                     console.log(
-                        "Identifier file created with name:",
+                        "API identifier file created with name:",
                         apiIdentifierFile
                     );
                 });
+
+                //Admin
+                fs.writeFile(adminIndexFile, adminIndexContent, (err) => {
+                    if (err) throw err;
+                    console.log(
+                        "Admin index file created with name:",
+                        adminIndexFile
+                    );
+                });
+
+                fs.writeFile(
+                    adminIdentifierFile,
+                    adminIdentifierContent,
+                    (err) => {
+                        if (err) throw err;
+                        console.log(
+                            "Admin identifier file created with name:",
+                            adminIdentifierFile
+                        );
+                    }
+                );
 
                 //Frontend
                 fs.writeFile(entityIndexFile, entityIndexContent, (err) => {
                     if (err) throw err;
                     console.log(
-                        "Identifier file created with name:",
-                        apiIdentifierFile
+                        "Frontend index file created with name:",
+                        entityIndexFile
                     );
                 });
                 fs.writeFile(
@@ -188,8 +240,8 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
-                            apiIdentifierFile
+                            "Frontend identifier file created with name:",
+                            entityIdentifierFile
                         );
                     }
                 );
@@ -198,14 +250,14 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                 fs.writeFile(useEntityFile, useEntityContent, (err) => {
                     if (err) throw err;
                     console.log(
-                        "Identifier file created with name:",
+                        "useEntity file created with name:",
                         useEntityFile
                     );
                 });
                 fs.writeFile(useEntitiesFile, useEntitiesContent, (err) => {
                     if (err) throw err;
                     console.log(
-                        "Identifier file created with name:",
+                        "useEntities file created with name:",
                         useEntitiesFile
                     );
                 });
@@ -217,7 +269,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
+                            "Organism file created with name:",
                             entityOrganismFile
                         );
                     }
@@ -228,7 +280,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
+                            "Organism list file created with name:",
                             entityListOrganismFile
                         );
                     }
@@ -239,7 +291,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
+                            "Organism deletion file created with name:",
                             entityDeletionOrganismFile
                         );
                     }
@@ -250,7 +302,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
+                            "Organism creation file created with name:",
                             entityCreationOrganismFile
                         );
                     }
@@ -263,7 +315,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                     (err) => {
                         if (err) throw err;
                         console.log(
-                            "Identifier file created with name:",
+                            "Entity list card file created with name:",
                             entityListCardFile
                         );
                     }
