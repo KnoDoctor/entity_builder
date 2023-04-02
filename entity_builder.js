@@ -77,7 +77,7 @@ rl.question("Enter an Uppercase Plural: ", (uppercasePlural) => {
                 });
 
                 //Admin
-                const adminDir = `${baseDir}/pages/admin/${lowercasePlural}/`;
+                const adminDir = `${baseDir}/pages/admin/[module]/${lowercasePlural}/`;
 
                 const adminIndexFile = `${adminDir}index.tsx`;
                 const adminIdentifierFile = `${adminDir}[identifier].tsx`;
