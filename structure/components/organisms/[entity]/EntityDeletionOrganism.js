@@ -18,6 +18,7 @@ module.exports.buildEntityDeletionOrganismFile = ({
     import { TransitionProps } from "@mui/material/transitions";
     
     import use${uppercasePlural} from "../../../hooks/${lowercasePlural}/use${uppercasePlural}";
+    import { returnCurrentModule } from "../../../utils/helperFunctions";
     
     const Transition = React.forwardRef(function Transition(
         props: TransitionProps & {
@@ -60,7 +61,7 @@ module.exports.buildEntityDeletionOrganismFile = ({
         };
     
         const redirect${uppercaseSingular} = () => {
-            router.push(\`/admin/marketing/${lowercasePlural}\`);
+            router.push(\`/admin/\${returnCurrentModule(router)}/${lowercasePlural}\`);
         };
     
         return (
