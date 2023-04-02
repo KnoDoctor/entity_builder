@@ -7,7 +7,8 @@ module.exports.buildEntityIdentifierFile = ({
     return `import { useRouter } from "next/router";
 import { GetStaticProps, GetStaticPaths } from "next";
 
-import RenderComponents from "../../components/__cms/RenderComponents";
+// import RenderComponents from "../../components/__cms/RenderComponents";
+import Button from "@mui/material/Button";
 
 const ${uppercaseSingular} = ({ ${lowercaseSingular}Data }: any) => {
     const router = useRouter();
@@ -17,10 +18,13 @@ const ${uppercaseSingular} = ({ ${lowercaseSingular}Data }: any) => {
     }
 
     const ${lowercaseSingular} = ${lowercaseSingular}Data?.data[0];
+    console.log(${lowercaseSingular}Data);
 
     return (
         <div>
-            <RenderComponents cmsData={${lowercaseSingular}?.cms_data} />
+            <div style={{ paddingTop: "100px" }}>{${lowercaseSingular}Data?.data?.${lowercaseSingular}_name}</div>
+            {/* <RenderComponents cmsData={${lowercaseSingular}?.cms_data} /> */}
+            <Button onClick={() => router.back()}>Back</Button>
         </div>
     );
 };
